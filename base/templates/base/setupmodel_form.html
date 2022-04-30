@@ -12,6 +12,12 @@
     {{ form.as_p }}
   </table>
 
+  <datalist id="asset-list">
+    {% for i in setup_model %}
+      <option value="{{i.Asset_Name}}">{{i.Asset_Name}}</option>
+    {% endfor %}
+  </datalist>
+
   <input type="submit" value="Submit">
 </form>
 

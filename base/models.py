@@ -4,7 +4,17 @@ from django.db import models
 class SetUpModel(models.Model):
 
   date = models.DateTimeField(auto_now_add=True)
-  schema = models.CharField(max_length=50, blank=False)
+  schema_choices = (
+    ('basket_indices', 'Basket Indices'),
+    ('bond', 'Bond'),
+    ('cryptocurrencies', 'Cryptocurrencies'),
+    ('economy', 'Economy'),
+    ('forex', 'Forex'),
+    ('futures_indices', 'Futures Indices'),
+    ('stock_indices', 'Stock Indices'),
+    ('synthetic_indices', 'Synthetic Indices'),
+  )
+  schema = models.CharField(max_length=50, choices=schema_choices, blank=False)
   Asset_Name = models.CharField(max_length=50, blank=False)
 
   Image_before = models.ImageField(upload_to='setup_Model/%Y/%m/%d')

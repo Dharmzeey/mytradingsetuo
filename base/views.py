@@ -18,4 +18,11 @@ class BaseView(LoginRequiredMixin, View):
 class CreateSetUp(LoginRequiredMixin, CreateView):
   form_class = SetUpModelForm
   template_name = 'base/setupmodel_form.html'
-  success_url = reverse_lazy("home")
+  success_url = reverse_lazy("home:home")
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+
+    setup_model = SetUpModel.objects.all()
+    context['setup_model'] = setup_model
+    return context
