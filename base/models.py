@@ -29,4 +29,4 @@ class SetUpModel(models.Model):
 
   be = models.BooleanField("be", default=False)
 
-  Reason_For_be = models.CharField(max_length=100, null=True, blank=True)
+  Reason_For_be = models.TextField(blank=True, null=True)

@@ -1,0 +1,58 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+<p>
+  Schema: {{ setup_detail.schema }}
+</p>
+
+<p>
+  Asset Name: {{ setup_detail.Asset_Name }}
+</p>
+
+<p>
+  Image Before: <img src="{{ setup_detail.Image_before.url }}">
+</p>
+
+{% if setup_detail.Image_before2 %}
+<p>
+  Image Before2: <img src="{{ setup_detail.Image_before2.url }}">
+</p>
+{% endif %}
+
+<p>
+  Bias: {{ setup_detail.bias }}
+</p>
+
+{% if setup_detail.Image_after %}
+<p>
+  Image After: <img src="{{ setup_detail.Image_after.url }}">
+</p>
+{% endif %}
+
+{% if setup_detail.Image_after2 %}
+<p>
+  Image After2: <img src="{{ setup_detail.Image_after2.url }}">
+</p>
+{% endif %}
+
+{% if setup_detail.result %}
+<p>
+  Result: {{ setup_detail.result }}
+</p>
+{% endif %}
+
+{% if setup_detail.be %}
+<p>
+  Be: {{ setup_detail.be }}
+</p>
+{% endif %}
+
+{% if setup_detail.be and setup_detail.Reason_For_be %}
+<p>
+  Reason for BreakEven: {{ setup_detail.Reason_For_be }}
+</p>
+{% endif %}
+
+<a href="{% url 'home:update' 6 %}">Update</a>
+
+{% endblock %}
