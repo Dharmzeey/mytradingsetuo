@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load static %}
 {% block content %}
 
 <p>
@@ -53,6 +54,6 @@
 </p>
 {% endif %}
 
-<a href="{% url 'home:update' 6 %}">Update</a>
+<a href="{% url 'home:update' setup_detail.id %}">Update</a>
 
 {% endblock %}

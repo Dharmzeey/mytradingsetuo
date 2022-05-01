@@ -5,5 +5,16 @@
   <a href="{% url 'home:create' %}">Create</a>
 </h1>
 
+<h2>
+  Recently Added Setups
+</h2>
+
+{% for setup in recent_setups %}
+  <div>
+    <p><a href="{% url 'home:detail' setup.id %}">{{ setup }}</a></p>
+    <img src="{{ setup.Image_before.url }}">
+  </div>
+{% endfor %}
+
 
 {% endblock %}

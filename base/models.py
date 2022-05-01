@@ -1,8 +1,10 @@
 from django.db import models
+from django.conf import settings
 
 
 class SetUpModel(models.Model):
 
+  owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   date = models.DateTimeField(auto_now_add=True)
   schema_choices = (
     ('basket_indices', 'Basket Indices'),
@@ -30,3 +32,6 @@ class SetUpModel(models.Model):
   be = models.BooleanField("be", default=False)
 
   Reason_For_be = models.TextField(blank=True, null=True)
+
+  def __str__(self):
+    return self.Asset_Name

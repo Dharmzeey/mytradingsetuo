@@ -18,7 +18,9 @@
     {% endfor %}
   </datalist>
 
-  <input type="submit" value="Submit">
+  <button class="btn form-btn" type="submit"> Submit </button>
+  <button onclick="window.location='{% url 'home:home' %}' ; return false;"  class="btn form-btn" type="submit">Cancel</button>
+
 </form>
 
 
