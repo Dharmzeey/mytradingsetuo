@@ -6,15 +6,16 @@ class SetUpModel(models.Model):
 
   owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   date = models.DateTimeField(auto_now_add=True)
+  date_modified = models.DateTimeField(auto_now=True)
   schema_choices = (
-    ('basket_indices', 'Basket Indices'),
-    ('bond', 'Bond'),
-    ('cryptocurrencies', 'Cryptocurrencies'),
-    ('economy', 'Economy'),
-    ('forex', 'Forex'),
-    ('futures_indices', 'Futures Indices'),
-    ('stock_indices', 'Stock Indices'),
-    ('synthetic_indices', 'Synthetic Indices'),
+    ('Basket Indices', 'Basket Indices'),
+    ('Bond', 'Bond'),
+    ('Cryptocurrencies', 'Cryptocurrencies'),
+    ('Economy', 'Economy'),
+    ('Forex', 'Forex'),
+    ('Futures Indices', 'Futures Indices'),
+    ('Stock Indices', 'Stock Indices'),
+    ('Synthetic Indices', 'Synthetic Indices'),
   )
   schema = models.CharField(max_length=50, choices=schema_choices, blank=False)
   Asset_Name = models.CharField(max_length=50, blank=False)

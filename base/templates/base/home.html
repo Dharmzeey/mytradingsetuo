@@ -5,15 +5,40 @@
   <a href="{% url 'home:create' %}">Create</a>
 </h1>
 
+<div>
+  <form action="" method="get">
+    <input type="text" name="q" placeholder="Search Setup...">
+  </form>
+</div>
+
+{% if search_result %}
+<h2>
+  Search Result
+</h2>
+
+{% for result in search_result %}
+    <div>
+    <p><a href="{% url 'home:detail' result.id %}">{{ result }} <br>
+      <img src="{{ result.Image_before.url }}">
+    </a></p>
+      <p>Created on: {{ result.date  }}</p>
+  </div>
+<br><br><hr>
+{% endfor %}
+{% endif %}
+
 <h2>
   Recently Added Setups
 </h2>
 
 {% for setup in recent_setups %}
   <div>
-    <p><a href="{% url 'home:detail' setup.id %}">{{ setup }}</a></p>
-    <img src="{{ setup.Image_before.url }}">
+    <p><a href="{% url 'home:detail' setup.id %}">{{ setup }} <br>
+      <img src="{{ setup.Image_before.url }}">
+    </a></p>
+    <p>Created on: {{ setup.date  }}</p>
   </div>
+<br><br><hr>
 {% endfor %}
 
 

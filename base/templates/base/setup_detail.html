@@ -54,6 +54,18 @@
 </p>
 {% endif %}
 
+{% if setup_detail.date %}
+<p>
+  Created on: {{ setup_detail.date }}
+</p>
+
+{% if setup_detail.date_modified %}
+<p>
+  Last Updated: {{ setup_detail.date_modified }}
+</p>
+{% endif %}
+{% endif %}
+
 <a href="{% url 'home:update' setup_detail.id %}">Update</a>
 
 {% endblock %}

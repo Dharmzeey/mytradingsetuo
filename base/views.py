@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import CreateView, UpdateView
@@ -15,12 +16,26 @@ class BaseView(LoginRequiredMixin, View):
     # GET THE NUMBER OF SETUPS AND DISPLAY THE LAST 10 AS RECENT SETUP
     total_setups = SetUpModel.objects.all().filter(owner=request.user).count()
     if total_setups >= 10:
-      recent_setups = SetUpModel.objects.all().filter(owner=request.user)[(total_setups - 10): total_setups]
+      recent_setups = SetUpModel.objects.all().filter(owner=request.user).order_by('-date')[(total_setups - 10): total_setups]
     else:
-      recent_setups = SetUpModel.objects.all().filter(owner=request.user)
+      recent_setups = SetUpModel.objects.all().filter(owner=request.user).order_by('-date')
     context = {
       'recent_setups': recent_setups
     }
+
+    # THIS FUNCTION BELOW HANDLES THE SEARCH
+    q = request.GET.get('q', '')
+
+    # THIS CHECKS IF THE Q HAS A STR
+    if q == '':
+      return render(request, self.template_name, context)
+
+    search_result = SetUpModel.objects.filter(owner=request.user).filter(
+      Q(Asset_Name__icontains=q)
+    ).order_by('-date')
+    context.update({
+      'search_result': search_result
+    })
     return render(request, self.template_name, context)
 
 
@@ -44,7 +59,11 @@ class UpdateSetup(LoginRequiredMixin, UpdateView):
   model = SetUpModel
   form_class = UpdateSetupForm
   template_name = 'base/setupmodel_form.html'
-  success_url = reverse_lazy("home:home")
+  # success_url = reverse_lazy("home:detail")
+
+  def get_success_url(self):
+    pk = self.kwargs['pk']
+    return reverse_lazy('home:detail', kwargs={'pk': pk})
 
 
 class SetupDetail(LoginRequiredMixin, View):
