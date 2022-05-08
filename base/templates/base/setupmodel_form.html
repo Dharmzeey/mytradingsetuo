@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
 
 <form action="" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <table>
     {{ form.as_p }}
+      Image Before: <img src="{{ form.Image_before.url}}">
+
   </table>
 
   <datalist id="asset-list">
@@ -23,7 +21,7 @@
 
 </form>
 
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
 
-</body>
-</html>
+{% endblock %}

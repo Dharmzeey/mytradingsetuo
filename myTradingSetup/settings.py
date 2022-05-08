@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'base.apps.BaseConfig',
-    'authenticator.apps.AuthenticatorConfig'
+    'authenticator.apps.AuthenticatorConfig',
 ]
+
+AUTH_USER_MODEL = 'authenticator.MyUserCreationModel'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -114,20 +116,24 @@ USE_I18N = True
 
 USE_TZ = True
 
-LOGIN_URL = 'login/'
+LOGIN_URL = 'auth/login/'
 
 LOGIN_REDIRECT_URL = "home:home"
 
-LOGOUT_REDIRECT_URL = "login"
+LOGOUT_REDIRECT_URL = "auth:login"
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+# STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+
+MEDIA_URL = 'images/'
+MEDIA_ROOT = BASE_DIR / 'static/images/'
 
 
 # Default primary key field type
@@ -135,5 +141,4 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = 'images/'
-MEDIA_ROOT = BASE_DIR / 'static/images/'
+

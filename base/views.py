@@ -61,6 +61,10 @@ class UpdateSetup(LoginRequiredMixin, UpdateView):
   template_name = 'base/setupmodel_form.html'
   # success_url = reverse_lazy("home:detail")
 
+  def get_queryset(self):
+    qs = super(UpdateSetup, self).get_queryset()
+    return qs.filter(owner=self.request.user)
+
   def get_success_url(self):
     pk = self.kwargs['pk']
     return reverse_lazy('home:detail', kwargs={'pk': pk})
