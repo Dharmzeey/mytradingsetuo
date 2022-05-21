@@ -40,9 +40,9 @@ INSTALLED_APPS = [
 
     'base.apps.BaseConfig',
     'authenticator.apps.AuthenticatorConfig',
-]
 
-AUTH_USER_MODEL = 'authenticator.MyUserCreationModel'
+    'crispy_forms',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -116,7 +116,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-LOGIN_URL = 'auth/login/'
+LOGIN_URL = "auth:login"
 
 LOGIN_REDIRECT_URL = "home:home"
 

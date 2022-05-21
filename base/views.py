@@ -14,11 +14,11 @@ class BaseView(LoginRequiredMixin, View):
 
   def get(self, request):
     # GET THE NUMBER OF SETUPS AND DISPLAY THE LAST 10 AS RECENT SETUP
-    total_setups = SetUpModel.objects.all().filter(owner=request.user).count()
+    total_setups = SetUpModel.objects.filter(owner=request.user).count()
     if total_setups >= 10:
-      recent_setups = SetUpModel.objects.all().filter(owner=request.user).order_by('-date')[(total_setups - 10): total_setups]
+      recent_setups = SetUpModel.objects.filter(owner=request.user).order_by('-date')[(total_setups - 10): total_setups]
     else:
-      recent_setups = SetUpModel.objects.all().filter(owner=request.user).order_by('-date')
+      recent_setups = SetUpModel.objects.filter(owner=request.user).order_by('-date')
     context = {
       'recent_setups': recent_setups
     }
@@ -41,16 +41,18 @@ class BaseView(LoginRequiredMixin, View):
 
 class CreateSetUp(LoginRequiredMixin, CreateView):
   form_class = SetUpModelForm
-  template_name = 'base/setupmodel_form.html'
+  template_name = 'base/setup_form.html'
   success_url = reverse_lazy("home:home")
 
   def form_valid(self, form):
     form.instance.owner = self.request.user
     return super(CreateSetUp, self).form_valid(form)
 
+  #  THIS GET_CONTEXT_DATA IS FOR THE DATALIST THAT WILL FETCH THE ASSET NAMES
+  #  AND WILL DISPLAY TO USER UPON FILLING THE CREATE FORM
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
-    setup_model = SetUpModel.objects.all().filter(owner=self.request.user)
+    setup_model = SetUpModel.objects.filter(owner=self.request.user)
     context['setup_model'] = setup_model
     return context
 
@@ -58,7 +60,7 @@ class CreateSetUp(LoginRequiredMixin, CreateView):
 class UpdateSetup(LoginRequiredMixin, UpdateView):
   model = SetUpModel
   form_class = UpdateSetupForm
-  template_name = 'base/setupmodel_form.html'
+  template_name = 'base/setup_form.html'
   # success_url = reverse_lazy("home:detail")
 
   def get_queryset(self):
@@ -74,7 +76,8 @@ class SetupDetail(LoginRequiredMixin, View):
   template_name = "base/setup_detail.html"
 
   def get(self, request, pk):
-    setup_detail = SetUpModel.objects.get(id=pk)
+    setup_detail = SetUpModel.objects.filter(owner=request.user).get(id=pk)
+    print(request.user)
     context = {
       'setup_detail': setup_detail
     }
