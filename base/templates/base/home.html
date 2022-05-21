@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% block content %}
+{% load humanize %}
 
 <h1>
   <a href="{% url 'home:create' %}">Create</a>
@@ -36,7 +37,7 @@
     <p><a href="{% url 'home:detail' setup.id %}">{{ setup }} <br>
       <img src="{{ setup.Image_before.url }}">
     </a></p>
-    <p>Created on: {{ setup.date  }}</p>
+    <p>Created: {{ setup.date|naturaltime  }}</p>
   </div>
 <br><br><hr>
 {% endfor %}

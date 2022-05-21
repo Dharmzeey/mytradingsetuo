@@ -1,2 +1,5 @@
 *static/images/
-*.sqlite3
+*.sqlite
+__pycache__
+*.pyc
+db.sqlite3
