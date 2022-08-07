@@ -7,15 +7,15 @@ if (document.getElementById("id_be")){
 //  THIS WILL HIDE THE TEXTAREA UNTIL THE BE IS CHECKED
   window.addEventListener('load', ()=> {
     if (!breakEven.checked) {
-      breakEvenTextarea.parentNode.style.display = 'none';
+      breakEvenTextarea.parentNode.parentNode.style.display = 'none';
     }
   })
 
   breakEven.addEventListener('click', ()=> {
     if(breakEven.checked){
-      breakEvenTextarea.parentNode.style.display = 'block';
+      breakEvenTextarea.parentNode.parentNode.style.display = 'table-row';
     }else {
-      breakEvenTextarea.parentNode.style.display = 'none';
+      breakEvenTextarea.parentNode.parentNode.style.display = 'none';
     }
   })
 }

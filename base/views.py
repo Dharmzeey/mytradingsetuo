@@ -15,10 +15,12 @@ class BaseView(LoginRequiredMixin, View):
   def get(self, request):
     # GET THE NUMBER OF SETUPS AND DISPLAY THE LAST 10 AS RECENT SETUP
     total_setups = SetUpModel.objects.filter(owner=request.user).count()
-    if total_setups >= 10:
-      recent_setups = SetUpModel.objects.filter(owner=request.user).order_by('-date')[(total_setups - 10): total_setups]
-    else:
-      recent_setups = SetUpModel.objects.filter(owner=request.user).order_by('-date')
+    recent_setups = SetUpModel.objects.filter(owner=request.user).order_by('-date')[:10]
+    
+    # if total_setups >= 10:
+    #   recent_setups = SetUpModel.objects.filter(owner=request.user).order_by('-date')[(total_setups - 10): total_setups]
+    # else:
+    #   recent_setups = SetUpModel.objects.filter(owner=request.user).order_by('-date')
     context = {
       'recent_setups': recent_setups
     }
